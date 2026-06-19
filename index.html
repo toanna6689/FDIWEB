@@ -122,6 +122,33 @@
             color: #667eea;
             margin-bottom: 1rem;
         }
+
+        .exchange-rate-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 3rem 0;
+            border-radius: 8px;
+        }
+
+        .exchange-rate-section h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
         
         footer {
             background-color: #333;
@@ -145,6 +172,7 @@
             <ul>
                 <li><a href="#home">Trang chủ</a></li>
                 <li><a href="#features">Tính năng</a></li>
+                <li><a href="#exchange">Tỷ giá</a></li>
                 <li><a href="#about">Về chúng tôi</a></li>
                 <li><a href="#contact">Liên hệ</a></li>
             </ul>
@@ -190,6 +218,42 @@
                     <p>Đội ngũ hỗ trợ kỹ thuật 24/7 để giúp bạn thành công</p>
                 </div>
             </section>
+
+            <!-- Exchange Rate Chart Section -->
+            <section class="exchange-rate-section" id="exchange">
+                <h2>💱 Tỷ giá USD/VND Realtime</h2>
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <!-- TradingView Widget BEGIN -->
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"></script>
+                        <div class="tradingview-widget-container">
+                          <div class="tradingview-widget-container__widget"></div>
+                          <script type="text/javascript">
+                          new TradingView.widget(
+                          {
+                          "width": "100%",
+                          "height": "500",
+                          "symbol": "CURRENCYCOM:USDVND",
+                          "interval": "D",
+                          "timezone": "Asia/Ho_Chi_Minh",
+                          "theme": "light",
+                          "style": "1",
+                          "locale": "vi_VN",
+                          "toolbar_bg": "#f1f3f6",
+                          "enable_publishing": false,
+                          "allow_symbol_change": true,
+                          "container_id": "tradingview-widget-container__widget"
+                          }
+                          );
+                          </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                        Biểu đồ tỷ giá USD/VND được cập nhật realtime từ Investing.com
+                    </p>
+                </div>
+            </section>
             
             <section id="about" style="padding: 3rem 0;">
                 <h2 style="color: #667eea; margin-bottom: 1.5rem;">Về FDIWEB</h2>
@@ -197,7 +261,8 @@
                     FDIWEB là một nền tảng quản lý đầu tư trực tiếp nước ngoài hiện đại, được thiết kế để 
                     giúp các doanh nghiệp và tổ chức quản lý các dự án FDI của họ một cách hiệu quả. 
                     Với các công cụ mạnh mẽ và giao diện thân thiện, chúng tôi giúp bạn đưa ra 
-                    quyết định tốt hơn và đạt được kết quả cao hơn.
+                    quyết định tốt hơn và đạt được kết quả cao hơn. Theo dõi tỷ giá USD/VND realtime 
+                    để tối ưu hóa chi phí và lợi nhuận cho các dự án của bạn.
                 </p>
             </section>
         </div>
