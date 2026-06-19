@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDIWEB - FDI Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: #f8f9fa;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #764ba2;
+        }
+        
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+        
+        .feature {
+            padding: 2rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌍 FDIWEB</h1>
+            <p class="tagline">Foreign Direct Investment Management System</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#features">Tính năng</a></li>
+                <li><a href="#about">Về chúng tôi</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <section class="hero" id="home">
+                <h2>Quản lý đầu tư trực tiếp nước ngoài một cách hiệu quả</h2>
+                <p>Nền tảng tất cả trong một để quản lý, theo dõi và tối ưu hóa các dự án FDI của bạn</p>
+                <button class="btn">Bắt đầu ngay</button>
+            </section>
+            
+            <section class="features" id="features">
+                <div class="feature">
+                    <h3>📊 Phân tích dữ liệu</h3>
+                    <p>Báo cáo chi tiết và phân tích thời gian thực cho tất cả các hoạt động FDI của bạn</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🔒 Bảo mật cao</h3>
+                    <p>Mã hóa end-to-end và tuân thủ các tiêu chuẩn bảo mật quốc tế</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>⚡ Hiệu suất nhanh</h3>
+                    <p>Xử lý dữ liệu lớn với tốc độ và độ tin cậy cao</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🌐 Hỗ trợ đa ngôn ngữ</h3>
+                    <p>Giao diện được hỗ trợ bởi nhiều ngôn ngữ cho các người dùng toàn cầu</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>📱 Mobile Ready</h3>
+                    <p>Truy cập từ bất kỳ thiết bị nào, bất kỳ lúc nào, bất kỳ nơi đâu</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>💼 Hỗ trợ doanh nghiệp</h3>
+                    <p>Đội ngũ hỗ trợ kỹ thuật 24/7 để giúp bạn thành công</p>
+                </div>
+            </section>
+            
+            <section id="about" style="padding: 3rem 0;">
+                <h2 style="color: #667eea; margin-bottom: 1.5rem;">Về FDIWEB</h2>
+                <p style="color: #666; font-size: 1.05rem;">
+                    FDIWEB là một nền tảng quản lý đầu tư trực tiếp nước ngoài hiện đại, được thiết kế để 
+                    giúp các doanh nghiệp và tổ chức quản lý các dự án FDI của họ một cách hiệu quả. 
+                    Với các công cụ mạnh mẽ và giao diện thân thiện, chúng tôi giúp bạn đưa ra 
+                    quyết định tốt hơn và đạt được kết quả cao hơn.
+                </p>
+            </section>
+        </div>
+    </main>
+    
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2026 FDIWEB. All rights reserved.</p>
+            <p>Contact: <a href="mailto:info@fdiweb.com" style="color: #667eea;">info@fdiweb.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>
