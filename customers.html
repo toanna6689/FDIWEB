@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI Hub - Customers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem 0;
+            border-bottom: 2px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover,
+        nav a.active {
+            color: #2a5298;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 0.25rem;
+        }
+        
+        .page-header {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(42, 82, 152, 0.05) 100%);
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 2.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        /* Customer Cards Grid */
+        .customers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .customer-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #2a5298;
+        }
+
+        .customer-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.1) 0%, rgba(42, 82, 152, 0.1) 100%);
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .card-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-company {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .info-label {
+            color: #888;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .card-footer a {
+            flex: 1;
+            padding: 0.5rem;
+            text-align: center;
+            background: white;
+            color: #2a5298;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        .card-footer a:hover {
+            background: #2a5298;
+            color: white;
+        }
+
+        /* Table View */
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .table-wrapper h3 {
+            color: #1e3c72;
+            padding: 2rem 2rem 1rem 2rem;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .table-wrapper thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .table-wrapper th {
+            padding: 1.2rem 2rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 0.95rem;
+        }
+
+        .table-wrapper td {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e9ecef;
+            color: #555;
+        }
+
+        .table-wrapper tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .customer-tier {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .customer-tier.premium::before {
+            content: "⭐ ";
+        }
+
+        .customer-tier.standard::before {
+            content: "✓ ";
+            color: #2a5298;
+        }
+
+        footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #a8d4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .header-actions {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .customers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-wrapper table {
+                font-size: 0.9rem;
+            }
+
+            .table-wrapper th,
+            .table-wrapper td {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌐 FDI Hub</h1>
+            <p class="tagline">Comprehensive Customer Incentives & Fee Management System</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="customers.html" class="active">Customers</a></li>
+                <li><a href="markets.html">Markets</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h2>Customer Management</h2>
+                <p>Comprehensive customer tracking with incentive and fee details</p>
+            </section>
+
+            <!-- Search and Actions -->
+            <section class="section" style="padding: 2rem 0;">
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search customers by name, company, or ID...">
+                    </div>
+                    <button class="btn">+ Add New Customer</button>
+                </div>
+            </section>
+
+            <!-- Customer Cards View -->
+            <section class="section">
+                <h2>All Customers (Card View)</h2>
+                
+                <div class="customers-grid">
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">John Anderson</div>
+                            <div class="card-company">Tech Solutions Ltd</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-001</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier premium">Premium</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$5,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$75,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-active">Active</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2025-03-15</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">Maria Chen</div>
+                            <div class="card-company">Global Industries Inc</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-002</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier premium">Premium</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$8,500</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$120,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-active">Active</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2024-11-20</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">Ahmed Hassan</div>
+                            <div class="card-company">Middle East Trading</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-003</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier standard">Standard</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$3,200</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$45,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-pending">Pending Review</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2026-05-10</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">Sophie Martin</div>
+                            <div class="card-company">European Manufacturing</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-004</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier premium">Premium</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$12,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$200,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-active">Active</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2023-08-05</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">Lin Zhang</div>
+                            <div class="card-company">Asia Pacific Corp</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-005</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier premium">Premium</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$7,800</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$95,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-active">Active</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2024-02-28</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="customer-card">
+                        <div class="card-header">
+                            <div class="card-name">Carlos Rodriguez</div>
+                            <div class="card-company">Latin America Trading</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item">
+                                <span class="info-label">Customer ID</span>
+                                <span class="info-value">CST-006</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Tier</span>
+                                <span class="customer-tier standard">Standard</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Fee</span>
+                                <span class="info-value">$6,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Incentive Value</span>
+                                <span class="info-value">$80,000</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status</span>
+                                <span class="badge badge-active">Active</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Join Date</span>
+                                <span class="info-value">2025-01-12</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#">View Details</a>
+                            <a href="#">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer List Table -->
+            <section class="section">
+                <div class="table-wrapper">
+                    <h3>Customer Summary (Table View)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer Name</th>
+                                <th>Company</th>
+                                <th>Tier</th>
+                                <th>Annual Fee</th>
+                                <th>Incentive Value</th>
+                                <th>Status</th>
+                                <th>Join Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CST-001</td>
+                                <td><strong>John Anderson</strong></td>
+                                <td>Tech Solutions Ltd</td>
+                                <td><span class="customer-tier premium">Premium</span></td>
+                                <td>$5,000</td>
+                                <td>$75,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2025-03-15</td>
+                            </tr>
+                            <tr>
+                                <td>CST-002</td>
+                                <td><strong>Maria Chen</strong></td>
+                                <td>Global Industries Inc</td>
+                                <td><span class="customer-tier premium">Premium</span></td>
+                                <td>$8,500</td>
+                                <td>$120,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2024-11-20</td>
+                            </tr>
+                            <tr>
+                                <td>CST-003</td>
+                                <td><strong>Ahmed Hassan</strong></td>
+                                <td>Middle East Trading</td>
+                                <td><span class="customer-tier standard">Standard</span></td>
+                                <td>$3,200</td>
+                                <td>$45,000</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td>2026-05-10</td>
+                            </tr>
+                            <tr>
+                                <td>CST-004</td>
+                                <td><strong>Sophie Martin</strong></td>
+                                <td>European Manufacturing</td>
+                                <td><span class="customer-tier premium">Premium</span></td>
+                                <td>$12,000</td>
+                                <td>$200,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2023-08-05</td>
+                            </tr>
+                            <tr>
+                                <td>CST-005</td>
+                                <td><strong>Lin Zhang</strong></td>
+                                <td>Asia Pacific Corp</td>
+                                <td><span class="customer-tier premium">Premium</span></td>
+                                <td>$7,800</td>
+                                <td>$95,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2024-02-28</td>
+                            </tr>
+                            <tr>
+                                <td>CST-006</td>
+                                <td><strong>Carlos Rodriguez</strong></td>
+                                <td>Latin America Trading</td>
+                                <td><span class="customer-tier standard">Standard</span></td>
+                                <td>$6,000</td>
+                                <td>$80,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2025-01-12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;"><strong>&copy; 2026 FDI Hub. All rights reserved.</strong></p>
+            <p>
+                Contact us: <a href="contact.html">support@fdihub.com</a> | 
+                Website: <a href="#">www.fdihub.com</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Empowering FDI Projects with Advanced Customer Management Solutions
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
