@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI Hub - Markets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem 0;
+            border-bottom: 2px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover,
+        nav a.active {
+            color: #2a5298;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 0.25rem;
+        }
+        
+        .page-header {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(42, 82, 152, 0.05) 100%);
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 2.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Market Indicators Grid */
+        .indicators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .indicator-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #2a5298;
+        }
+
+        .indicator-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+
+        .indicator-name {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .indicator-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2a5298;
+            margin-bottom: 0.5rem;
+        }
+
+        .indicator-change {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .indicator-change.up {
+            color: #28a745;
+        }
+
+        .indicator-change.down {
+            color: #dc3545;
+        }
+
+        .indicator-time {
+            font-size: 0.8rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 550px;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .chart-subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Market Information Table */
+        .market-info-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .market-info-table h3 {
+            color: #1e3c72;
+            padding: 2rem 2rem 1rem 2rem;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .market-info-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .market-info-table thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .market-info-table th {
+            padding: 1.2rem 2rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 0.95rem;
+        }
+
+        .market-info-table td {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e9ecef;
+            color: #555;
+        }
+
+        .market-info-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .value-up {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .value-down {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .update-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Exchange Rate Section */
+        .exchange-rate-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: 12px;
+        }
+
+        .exchange-rate-section h2 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #2a5298;
+        }
+
+        .info-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #a8d4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-info-table th,
+            .market-info-table td {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .chart-wrapper {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌐 FDI Hub</h1>
+            <p class="tagline">Comprehensive Customer Incentives & Fee Management System</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="markets.html" class="active">Markets</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h2>Market Data & Analytics</h2>
+                <p>Real-time market information to support informed investment decisions</p>
+            </section>
+
+            <!-- Market Indicators -->
+            <section class="section">
+                <h2>Key Market Indicators</h2>
+                <p class="section-subtitle">Latest market data from major Vietnamese stock exchanges</p>
+                
+                <div class="indicators-grid">
+                    <div class="indicator-card">
+                        <div class="indicator-name">💹 VN-Index</div>
+                        <div class="indicator-value">1,285.45</div>
+                        <div class="indicator-change up">↑ +25.30 (+1.99%)</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026 - 3:00 PM</div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-name">💹 HNX-Index</div>
+                        <div class="indicator-value">635.82</div>
+                        <div class="indicator-change up">↑ +12.45 (+1.98%)</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026 - 3:00 PM</div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-name">💵 USD/VND</div>
+                        <div class="indicator-value">24,650</div>
+                        <div class="indicator-change down">↓ -50 (-0.20%)</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026 - 4:30 PM</div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-name">📊 Trading Volume (VN)</div>
+                        <div class="indicator-value">742.5M</div>
+                        <div class="indicator-change up">↑ +15.2% vs yesterday</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026 - 3:00 PM</div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-name">📈 Market Cap (VN)</div>
+                        <div class="indicator-value">$385.2B</div>
+                        <div class="indicator-change up">↑ +2.1% this week</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026</div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-name">💱 EUR/VND</div>
+                        <div class="indicator-value">27,125</div>
+                        <div class="indicator-change up">↑ +35 (+0.13%)</div>
+                        <div class="indicator-time">Last Updated: June 20, 2026 - 4:30 PM</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="section">
+                <h2>Market Charts & Data</h2>
+                <p class="section-subtitle">Interactive charts from CafeF and Investing.com</p>
+                
+                <div class="charts-grid">
+                    <!-- VN-Index Chart -->
+                    <div class="chart-container">
+                        <div class="chart-title">💹 VN-Index Chart</div>
+                        <div class="chart-subtitle">Vietnam Stock Market Index - Real-time from CafeF</div>
+                        <div class="chart-wrapper">
+                            <iframe src="https://www.cafef.vn/chung-chi.html" 
+                                    width="100%" 
+                                    height="450" 
+                                    frameborder="0" 
+                                    scrolling="no"
+                                    style="border: none; border-radius: 8px;">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- HNX-Index Chart -->
+                    <div class="chart-container">
+                        <div class="chart-title">💹 HNX-Index Chart</div>
+                        <div class="chart-subtitle">Hanoi Stock Exchange Index - Real-time from CafeF</div>
+                        <div class="chart-wrapper">
+                            <iframe src="https://www.cafef.vn/upcom.html" 
+                                    width="100%" 
+                                    height="450" 
+                                    frameborder="0" 
+                                    scrolling="no"
+                                    style="border: none; border-radius: 8px;">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exchange Rate Section -->
+            <section class="exchange-rate-section">
+                <div style="padding: 0;">
+                    <h2 style="margin-bottom: 2rem;">💱 USD/VND Exchange Rate - Real-time</h2>
+                    <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <div style="position: relative; width: 100%; height: 500px;">
+                            <!-- TradingView Widget BEGIN -->
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"></script>
+                            <div class="tradingview-widget-container">
+                              <div class="tradingview-widget-container__widget"></div>
+                              <script type="text/javascript">
+                              new TradingView.widget(
+                              {
+                              "width": "100%",
+                              "height": "500",
+                              "symbol": "CURRENCYCOM:USDVND",
+                              "interval": "D",
+                              "timezone": "Asia/Ho_Chi_Minh",
+                              "theme": "light",
+                              "style": "1",
+                              "locale": "en_US",
+                              "toolbar_bg": "#f1f3f6",
+                              "enable_publishing": false,
+                              "allow_symbol_change": true,
+                              "container_id": "tradingview-widget-container__widget"
+                              }
+                              );
+                              </script>
+                            </div>
+                            <!-- TradingView Widget END -->
+                        </div>
+                        <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.9rem;">
+                            Real-time USD/VND Exchange Rate Data from Investing.com
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Information -->
+            <section class="section">
+                <h2>Market Overview</h2>
+                <p class="section-subtitle">Detailed market information and statistics</p>
+                
+                <div class="market-info-table">
+                    <h3>Stock Exchange Performance</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Current Value</th>
+                                <th>Change</th>
+                                <th>% Change</th>
+                                <th>Trading Volume</th>
+                                <th>Update Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>VN-Index</strong></td>
+                                <td>1,285.45</td>
+                                <td class="value-up">+25.30</td>
+                                <td class="value-up">+1.99%</td>
+                                <td>742.5M</td>
+                                <td><span class="update-badge">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>HNX-Index</strong></td>
+                                <td>635.82</td>
+                                <td class="value-up">+12.45</td>
+                                <td class="value-up">+1.98%</td>
+                                <td>125.3M</td>
+                                <td><span class="update-badge">Live</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>UpCom Index</strong></td>
+                                <td>112.35</td>
+                                <td class="value-down">-2.15</td>
+                                <td class="value-down">-1.88%</td>
+                                <td>45.8M</td>
+                                <td><span class="update-badge">Live</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="market-info-table">
+                    <h3>Currency Exchange Rates</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Currency Pair</th>
+                                <th>Rate</th>
+                                <th>Change</th>
+                                <th>% Change</th>
+                                <th>High</th>
+                                <th>Low</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>USD/VND</strong></td>
+                                <td>24,650</td>
+                                <td class="value-down">-50</td>
+                                <td class="value-down">-0.20%</td>
+                                <td>24,780</td>
+                                <td>24,550</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EUR/VND</strong></td>
+                                <td>27,125</td>
+                                <td class="value-up">+35</td>
+                                <td class="value-up">+0.13%</td>
+                                <td>27,200</td>
+                                <td>26,950</td>
+                            </tr>
+                            <tr>
+                                <td><strong>GBP/VND</strong></td>
+                                <td>31,450</td>
+                                <td class="value-up">+120</td>
+                                <td class="value-up">+0.39%</td>
+                                <td>31,600</td>
+                                <td>31,100</td>
+                            </tr>
+                            <tr>
+                                <td><strong>JPY/VND</strong></td>
+                                <td>171.50</td>
+                                <td class="value-down">-1.25</td>
+                                <td class="value-down">-0.72%</td>
+                                <td>173.20</td>
+                                <td>170.80</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Market Information Cards -->
+            <section class="section">
+                <h2>Market Insights</h2>
+                
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3>📈 Stock Market Trends</h3>
+                        <p>
+                            The Vietnamese stock market continues to show positive momentum with VN-Index reaching new highs. 
+                            Blue-chip stocks are leading the rally, supported by strong corporate earnings and positive economic indicators. 
+                            Foreign investors have been net buyers in recent trading sessions.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>💱 Currency Market</h3>
+                        <p>
+                            The Vietnamese Dong remains relatively stable against major currencies. USD/VND is trading around 24,650, 
+                            reflecting a balanced supply-demand dynamic. The central bank continues to manage liquidity through regular interventions.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>🌍 Global Impact</h3>
+                        <p>
+                            Global economic conditions and Fed policy decisions continue to influence Vietnamese markets. 
+                            Investors should monitor international developments, trade policies, and regional geopolitical factors 
+                            that may impact market performance and currency movements.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>🔍 FDI Market Activity</h3>
+                        <p>
+                            Foreign Direct Investment remains robust in Vietnam, with key sectors including technology, manufacturing, 
+                            and real estate attracting significant capital inflows. Market data integration helps FDI Hub users make informed 
+                            decisions about incentive structures and fee adjustments.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>📊 Trading Volume</h3>
+                        <p>
+                            Average daily trading volume on HOSE has increased significantly compared to last year, 
+                            indicating growing investor participation and market liquidity. This trend provides better execution 
+                            for institutional and retail traders alike.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>⚠️ Risk Factors</h3>
+                        <p>
+                            Key risk factors to monitor include inflation trends, interest rate decisions, corporate debt levels, 
+                            and external trade dynamics. Diversification and hedging strategies remain important for portfolio management 
+                            and risk mitigation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;"><strong>&copy; 2026 FDI Hub. All rights reserved.</strong></p>
+            <p>
+                Contact us: <a href="contact.html">support@fdihub.com</a> | 
+                Website: <a href="#">www.fdihub.com</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Empowering FDI Projects with Advanced Customer Management Solutions
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
