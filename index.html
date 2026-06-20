@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDIWEB - FDI Management System</title>
+    <title>FDI Hub - Customer Incentives & Fee Management System</title>
     <style>
         * {
             margin: 0;
@@ -15,13 +15,14 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            background: #f8f9fa;
         }
         
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 2rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
         
         .container {
@@ -33,105 +34,262 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
         
         .tagline {
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-weight: 300;
         }
         
         nav {
-            background-color: #f8f9fa;
+            background-color: white;
             padding: 1rem 0;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 2px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
         }
         
         nav a {
             text-decoration: none;
-            color: #667eea;
-            font-weight: 500;
+            color: #1e3c72;
+            font-weight: 600;
             transition: color 0.3s ease;
+            font-size: 0.95rem;
         }
         
         nav a:hover {
-            color: #764ba2;
+            color: #2a5298;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 0.25rem;
         }
         
         .hero {
-            padding: 4rem 0;
+            padding: 5rem 0;
             text-align: center;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(42, 82, 152, 0.05) 100%);
+            margin: 2rem 0;
+            border-radius: 12px;
         }
         
         .hero h2 {
-            font-size: 2rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
-            color: #667eea;
+            color: #1e3c72;
+            font-weight: 700;
         }
         
         .hero p {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 2rem;
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .btn {
             display: inline-block;
-            padding: 0.75rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            font-weight: 600;
+            margin-right: 1rem;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1e3c72;
+            border: 2px solid #1e3c72;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f5ff;
         }
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             padding: 3rem 0;
         }
         
         .feature {
-            padding: 2rem;
-            border-radius: 8px;
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s ease;
+            padding: 2.5rem;
+            border-radius: 12px;
+            background: white;
+            border-left: 5px solid #2a5298;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.15);
+            border-left-color: #1e3c72;
         }
         
         .feature h3 {
-            color: #667eea;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.05rem;
+        }
+
+        /* Dashboard Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #2a5298;
+        }
+
+        .dashboard-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
 
-        .market-section {
-            padding: 3rem 0;
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
         }
 
-        .market-section h2 {
-            color: #667eea;
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2a5298;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Table Section */
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
-            text-align: center;
+        }
+
+        .table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-wrapper thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .table-wrapper th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 0.95rem;
+        }
+
+        .table-wrapper td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #e9ecef;
+            color: #555;
+        }
+
+        .table-wrapper tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Market Data Section */
+        .market-section {
+            padding: 3rem 0;
         }
 
         .charts-grid {
@@ -143,16 +301,16 @@
 
         .chart-container {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             min-height: 500px;
         }
 
         .chart-title {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #333;
+            color: #1e3c72;
             margin-bottom: 1rem;
             text-align: center;
         }
@@ -163,24 +321,67 @@
             height: 450px;
         }
 
-        .exchange-rate-section {
-            padding: 3rem 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 2rem 0;
-            border-radius: 8px;
+        .footer-divider {
+            background: linear-gradient(90deg, #e9ecef 0%, #dee2e6 50%, #e9ecef 100%);
+            height: 2px;
+            margin: 3rem 0;
         }
-        
+
         footer {
-            background-color: #333;
+            background-color: #1e3c72;
             color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 2.5rem 0;
             margin-top: 3rem;
         }
 
-        @media (max-width: 1024px) {
+        footer a {
+            color: #a8d4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .about-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+        }
+
+        .about-section h3 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .about-section p {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
             .charts-grid {
                 grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .btn {
+                margin-right: 0;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -188,71 +389,201 @@
 <body>
     <header>
         <div class="container">
-            <h1>🌍 FDIWEB</h1>
-            <p class="tagline">Foreign Direct Investment Management System</p>
+            <h1>🌐 FDI Hub</h1>
+            <p class="tagline">Comprehensive Customer Incentives & Fee Management System</p>
         </div>
     </header>
     
     <nav>
         <div class="container">
             <ul>
-                <li><a href="#home">Trang chủ</a></li>
-                <li><a href="#features">Tính năng</a></li>
-                <li><a href="#markets">Thị trường</a></li>
-                <li><a href="#about">Về chúng tôi</a></li>
-                <li><a href="#contact">Liên hệ</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#customers">Customers</a></li>
+                <li><a href="#markets">Markets</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
     
     <main>
         <div class="container">
+            <!-- Hero Section -->
             <section class="hero" id="home">
-                <h2>Quản lý đầu tư trực tiếp nước ngoài một cách hiệu quả</h2>
-                <p>Nền tảng tất cả trong một để quản lý, theo dõi và tối ưu hóa các dự án FDI của bạn</p>
-                <button class="btn">Bắt đầu ngay</button>
+                <h2>Manage Customer Incentives & Fees with Ease</h2>
+                <p>A powerful platform designed to streamline the management, monitoring, and optimization of customer incentive packages and fee structures for foreign direct investment projects.</p>
+                <button class="btn">Get Started</button>
+                <button class="btn btn-secondary">Learn More</button>
             </section>
             
-            <section class="features" id="features">
-                <div class="feature">
-                    <h3>📊 Phân tích dữ liệu</h3>
-                    <p>Báo cáo chi tiết và phân tích thời gian thực cho tất cả các hoạt động FDI của bạn</p>
+            <!-- Features Section -->
+            <section class="section" id="features">
+                <h2>Core Features</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>💰 Incentive Management</h3>
+                        <p>Create, monitor, and manage comprehensive incentive packages including tax breaks, subsidies, and special offers tailored to each customer profile.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>💳 Fee Tracking</h3>
+                        <p>Real-time tracking of all fees, charges, and commission structures with detailed reports and analytics for better cost control.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>📊 Advanced Analytics</h3>
+                        <p>Comprehensive dashboards and detailed reports providing insights into incentive effectiveness, fee distribution, and customer profitability.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>👥 Customer Profiles</h3>
+                        <p>Detailed customer information with incentive history, fee agreements, and performance metrics in one centralized location.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>📱 Mobile Access</h3>
+                        <p>Access your customer data, incentives, and fee information from any device, anywhere, anytime with our responsive platform.</p>
+                    </div>
+                    
+                    <div class="feature">
+                        <h3>🔒 Enterprise Security</h3>
+                        <p>Bank-grade encryption, role-based access control, and comprehensive audit trails to ensure maximum data security and compliance.</p>
+                    </div>
                 </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="section" id="dashboard">
+                <h2>Management Dashboard</h2>
+                <p class="section-subtitle">Real-time overview of your customer incentives and fee management</p>
                 
-                <div class="feature">
-                    <h3>🔒 Bảo mật cao</h3>
-                    <p>Mã hóa end-to-end và tuân thủ các tiêu chuẩn bảo mật quốc tế</p>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">Total Customers</div>
+                        <div class="card-value">342</div>
+                        <div class="card-description">Active customer accounts</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Total Incentives</div>
+                        <div class="card-value">$2.4M</div>
+                        <div class="card-description">Active incentive packages</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-icon">💵</div>
+                        <div class="card-title">Monthly Fees</div>
+                        <div class="card-value">$156K</div>
+                        <div class="card-description">Collected this month</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-title">Active Programs</div>
+                        <div class="card-value">28</div>
+                        <div class="card-description">Running incentive programs</div>
+                    </div>
                 </div>
-                
-                <div class="feature">
-                    <h3>⚡ Hiệu suất nhanh</h3>
-                    <p>Xử lý dữ liệu lớn với tốc độ và độ tin cậy cao</p>
+
+                <!-- Sample Customer Data Table -->
+                <h3 style="color: #1e3c72; margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.3rem;">Customer Incentives & Fees Overview</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Company</th>
+                                <th>Incentive Package</th>
+                                <th>Annual Fee</th>
+                                <th>Status</th>
+                                <th>Expiration Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>John Anderson</strong></td>
+                                <td>Tech Solutions Ltd</td>
+                                <td>Premium Tax Break - 15%</td>
+                                <td>$5,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2026-12-31</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maria Chen</strong></td>
+                                <td>Global Industries Inc</td>
+                                <td>Subsidy + Tax Incentive</td>
+                                <td>$8,500</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2027-06-30</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ahmed Hassan</strong></td>
+                                <td>Middle East Trading</td>
+                                <td>Standard Incentive Package</td>
+                                <td>$3,200</td>
+                                <td><span class="badge badge-pending">Pending Review</span></td>
+                                <td>2026-09-15</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sophie Martin</strong></td>
+                                <td>European Manufacturing</td>
+                                <td>Extended Tax Holiday</td>
+                                <td>$12,000</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>2028-03-31</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Robert Williams</strong></td>
+                                <td>American Ventures</td>
+                                <td>Legacy Program</td>
+                                <td>$2,500</td>
+                                <td><span class="badge badge-expired">Expired</span></td>
+                                <td>2024-12-31</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section class="section" id="customers">
+                <h2>Customer Management</h2>
+                <p class="section-subtitle">Comprehensive customer tracking with incentive and fee details</p>
                 
-                <div class="feature">
-                    <h3>🌐 Hỗ trợ đa ngôn ngữ</h3>
-                    <p>Giao diện được hỗ trợ bởi nhiều ngôn ngữ cho các người dùng toàn cầu</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>📱 Mobile Ready</h3>
-                    <p>Truy cập từ bất kỳ thiết bị nào, bất kỳ lúc nào, bất kỳ nơi đâu</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>💼 Hỗ trợ doanh nghiệp</h3>
-                    <p>Đội ngũ hỗ trợ kỹ thuật 24/7 để giúp bạn thành công</p>
+                <h3 style="color: #1e3c72; margin-bottom: 1.5rem; font-size: 1.2rem;">Key Management Features:</h3>
+                <div class="features">
+                    <div class="feature">
+                        <h3>Customer Profiles</h3>
+                        <p>Complete customer information including company details, contact information, investment history, and relationship management.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Incentive History</h3>
+                        <p>Track all incentives offered, their terms, validity periods, and effectiveness metrics for each customer.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Fee Management</h3>
+                        <p>Monitor service fees, transaction charges, and other fee structures with automatic billing and payment tracking.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Performance Metrics</h3>
+                        <p>Analyze customer engagement, ROI on incentives, and profitability metrics to optimize relationship management.</p>
+                    </div>
                 </div>
             </section>
 
             <!-- Market Data Section -->
             <section class="market-section" id="markets">
-                <h2>📈 Dữ liệu Thị trường Realtime</h2>
+                <h2>Market Data & Exchange Rates</h2>
+                <p class="section-subtitle">Real-time market information for informed decision making</p>
                 
                 <div class="charts-grid">
                     <!-- VN-Index Chart from CafeF -->
                     <div class="chart-container">
-                        <div class="chart-title">💹 VN-Index từ CafeF</div>
+                        <div class="chart-title">💹 VN-Index from CafeF</div>
                         <div class="chart-wrapper">
                             <iframe src="https://www.cafef.vn/chung-chi.html" 
                                     width="100%" 
@@ -262,14 +593,14 @@
                                     style="border: none; border-radius: 8px;">
                             </iframe>
                         </div>
-                        <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
-                            Chỉ số VN-Index được cập nhật realtime từ CafeF
+                        <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.9rem;">
+                            Vietnam Stock Market Index - Real-time data from CafeF
                         </p>
                     </div>
 
                     <!-- HNX-Index Chart from CafeF -->
                     <div class="chart-container">
-                        <div class="chart-title">💹 HNX-Index từ CafeF</div>
+                        <div class="chart-title">💹 HNX-Index from CafeF</div>
                         <div class="chart-wrapper">
                             <iframe src="https://www.cafef.vn/upcom.html" 
                                     width="100%" 
@@ -279,17 +610,15 @@
                                     style="border: none; border-radius: 8px;">
                             </iframe>
                         </div>
-                        <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
-                            Chỉ số HNX-Index được cập nhật realtime từ CafeF
+                        <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.9rem;">
+                            Hanoi Stock Exchange Index - Real-time data from CafeF
                         </p>
                     </div>
                 </div>
-            </section>
 
-            <!-- Exchange Rate Chart Section -->
-            <section class="exchange-rate-section">
-                <div style="padding: 2rem 0;">
-                    <h2 style="color: #667eea; margin-bottom: 2rem; text-align: center;">💱 Tỷ giá USD/VND Realtime</h2>
+                <!-- USD/VND Exchange Rate -->
+                <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 3rem 0; margin: 2rem 0; border-radius: 12px;">
+                    <h3 style="color: #1e3c72; margin-bottom: 2rem; text-align: center; font-size: 1.4rem;">💱 USD/VND Exchange Rate - Real-time</h3>
                     <div class="chart-container">
                         <div class="chart-wrapper">
                             <!-- TradingView Widget BEGIN -->
@@ -306,7 +635,7 @@
                               "timezone": "Asia/Ho_Chi_Minh",
                               "theme": "light",
                               "style": "1",
-                              "locale": "vi_VN",
+                              "locale": "en_US",
                               "toolbar_bg": "#f1f3f6",
                               "enable_publishing": false,
                               "allow_symbol_change": true,
@@ -317,31 +646,48 @@
                             </div>
                             <!-- TradingView Widget END -->
                         </div>
-                        <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
-                            Biểu đồ tỷ giá USD/VND được cập nhật realtime từ Investing.com
+                        <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.9rem;">
+                            USD/VND Exchange Rate - Real-time data from Investing.com
                         </p>
                     </div>
                 </div>
             </section>
-            
-            <section id="about" style="padding: 3rem 0;">
-                <h2 style="color: #667eea; margin-bottom: 1.5rem;">Về FDIWEB</h2>
-                <p style="color: #666; font-size: 1.05rem;">
-                    FDIWEB là một nền tảng quản lý đầu tư trực tiếp nước ngoài hiện đại, được thiết kế để 
-                    giúp các doanh nghiệp và tổ chức quản lý các dự án FDI của họ một cách hiệu quả. 
-                    Với các công cụ mạnh mẽ và giao diện thân thiện, chúng tôi giúp bạn đưa ra 
-                    quyết định tốt hơn và đạt được kết quả cao hơn. Theo dõi dữ liệu thị trường realtime 
-                    bao gồm VN-Index, HNX-Index và tỷ giá USD/VND để tối ưu hóa chi phí và lợi nhuận 
-                    cho các dự án của bạn.
-                </p>
+
+            <div class="footer-divider"></div>
+
+            <!-- About Section -->
+            <section id="about">
+                <div class="about-section">
+                    <h3>About FDI Hub</h3>
+                    <p>
+                        FDI Hub is a comprehensive customer management platform specifically designed for foreign direct investment companies. 
+                        It provides powerful tools to manage, track, and optimize customer incentive packages and fee structures with real-time 
+                        market data integration.
+                    </p>
+                    <p>
+                        Our platform enables organizations to streamline incentive management, maintain detailed customer profiles, track service fees, 
+                        and gain actionable insights through advanced analytics. With market data from CafeF and Investing.com, you can make informed 
+                        decisions about fee structures and incentive offerings.
+                    </p>
+                    <p>
+                        Whether you're managing a small portfolio of premium clients or thousands of customers with varying incentive packages, 
+                        FDI Hub provides the scalability, security, and functionality you need to succeed.
+                    </p>
+                </div>
             </section>
         </div>
     </main>
     
     <footer id="contact">
         <div class="container">
-            <p>&copy; 2026 FDIWEB. All rights reserved.</p>
-            <p>Contact: <a href="mailto:info@fdiweb.com" style="color: #667eea;">info@fdiweb.com</a></p>
+            <p style="margin-bottom: 1rem;"><strong>&copy; 2026 FDI Hub. All rights reserved.</strong></p>
+            <p>
+                Contact us: <a href="mailto:support@fdihub.com">support@fdihub.com</a> | 
+                Website: <a href="https://www.fdihub.com">www.fdihub.com</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Empowering FDI Projects with Advanced Customer Management Solutions
+            </p>
         </div>
     </footer>
 </body>
