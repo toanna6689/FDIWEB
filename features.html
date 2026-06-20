@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI Hub - Features</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem 0;
+            border-bottom: 2px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover,
+        nav a.active {
+            color: #2a5298;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 0.25rem;
+        }
+        
+        .page-header {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.05) 0%, rgba(42, 82, 152, 0.05) 100%);
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 2.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            padding: 2.5rem;
+            border-radius: 12px;
+            background: white;
+            border-left: 5px solid #2a5298;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.15);
+            border-left-color: #1e3c72;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature-list h3 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-list li {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        .feature-list li:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .feature-list li::before {
+            content: "✓ ";
+            color: #2a5298;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .check {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .cross {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+        }
+
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #1e3c72;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #a8d4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌐 FDI Hub</h1>
+            <p class="tagline">Comprehensive Customer Incentives & Fee Management System</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html" class="active">Features</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="markets.html">Markets</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h2>Our Core Features</h2>
+                <p>Comprehensive tools and capabilities designed to streamline your customer incentives and fee management</p>
+            </section>
+
+            <!-- Main Features -->
+            <section class="section">
+                <h2>Complete Feature Set</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Incentive Management</h3>
+                        <p>Create, customize, and manage comprehensive incentive packages including tax breaks, subsidies, and special offers. Track incentive usage and effectiveness in real-time.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💳</div>
+                        <h3>Fee Tracking & Billing</h3>
+                        <p>Monitor all service fees, transaction charges, and commission structures. Automate billing processes with flexible payment terms and comprehensive invoicing.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Get comprehensive dashboards and detailed reports with insights into incentive effectiveness, fee distribution, customer profitability, and ROI metrics.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Customer Management</h3>
+                        <p>Maintain detailed customer profiles with complete incentive history, fee agreements, contact information, and relationship management capabilities.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Market Data Integration</h3>
+                        <p>Real-time integration with market data providers including VN-Index, HNX-Index, and currency exchange rates for informed decision-making.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Enterprise Security</h3>
+                        <p>Bank-grade encryption, role-based access control, multi-factor authentication, and comprehensive audit trails for maximum data security.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Feature List -->
+            <section class="section">
+                <h2>Feature Details</h2>
+                
+                <div class="feature-list">
+                    <h3>📋 Incentive Management Capabilities</h3>
+                    <ul>
+                        <li>Create unlimited custom incentive packages</li>
+                        <li>Set expiration dates and eligibility criteria</li>
+                        <li>Track incentive utilization and redemption</li>
+                        <li>Generate incentive performance reports</li>
+                        <li>Manage incentive renewal and updates</li>
+                        <li>Batch incentive operations</li>
+                    </ul>
+                </div>
+
+                <div class="feature-list">
+                    <h3>💰 Fee Management Capabilities</h3>
+                    <ul>
+                        <li>Flexible fee structure configuration</li>
+                        <li>Automated billing and invoicing</li>
+                        <li>Payment tracking and reconciliation</li>
+                        <li>Fee waiver and discount management</li>
+                        <li>Revenue analytics and reporting</li>
+                        <li>Multi-currency support</li>
+                    </ul>
+                </div>
+
+                <div class="feature-list">
+                    <h3>📊 Analytics & Reporting</h3>
+                    <ul>
+                        <li>Real-time dashboard with key metrics</li>
+                        <li>Custom report builder</li>
+                        <li>Scheduled automated reports</li>
+                        <li>Data export in multiple formats</li>
+                        <li>Trend analysis and forecasting</li>
+                        <li>Performance benchmarking</li>
+                    </ul>
+                </div>
+
+                <div class="feature-list">
+                    <h3>🔐 Security & Compliance</h3>
+                    <ul>
+                        <li>256-bit SSL encryption</li>
+                        <li>Role-based access control (RBAC)</li>
+                        <li>Multi-factor authentication (MFA)</li>
+                        <li>Complete audit logging</li>
+                        <li>GDPR and data compliance</li>
+                        <li>Regular security audits</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Comparison Table -->
+            <section class="section">
+                <h2>Plan Comparison</h2>
+                <p class="section-subtitle">Choose the plan that best fits your needs</p>
+
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Starter</th>
+                                <th>Professional</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Max Customers</strong></td>
+                                <td>100</td>
+                                <td>1,000</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Incentive Packages</strong></td>
+                                <td>10</td>
+                                <td>Unlimited</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Basic Analytics</strong></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Advanced Reports</strong></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>API Access</strong></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Custom Integration</strong></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dedicated Support</strong></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multi-user Access</strong></td>
+                                <td>3 users</td>
+                                <td>Unlimited</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SSO & SAML</strong></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="cross">✗</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SLA Guarantee</strong></td>
+                                <td>99%</td>
+                                <td>99.5%</td>
+                                <td>99.9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h3>Ready to Transform Your Customer Management?</h3>
+                <p>Start with FDI Hub today and experience the power of comprehensive incentive and fee management.</p>
+                <a href="dashboard.html" class="btn">View Dashboard</a>
+                <a href="contact.html" class="btn" style="background: transparent; border: 2px solid white; color: white;">Get in Touch</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1rem;"><strong>&copy; 2026 FDI Hub. All rights reserved.</strong></p>
+            <p>
+                Contact us: <a href="contact.html">support@fdihub.com</a> | 
+                Website: <a href="#">www.fdihub.com</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                Empowering FDI Projects with Advanced Customer Management Solutions
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
